@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>front</title>
+</head>
+<body>
+    <h1>
+        这是一个测试网页, 输入邮箱号和你想发送的内容进行测试!!
+    </h1>
+    <form id="form">
+        <input type="text" name="mail" class="form_value" placeholder="邮箱">
+        <input type="text" name="value" class="form_value" placeholder="内容">
+        <input type="button" value="submit_btn" onclick="my_function(); return false;">
+    </form>
+    <script>
+        const my_function = () => {
+            let element = document.getElementsByClassName("form_value")
+            let form_data = new FormData()
+            for (let i = 0; i < element.length; i++) {
+                form_data.append(element[i].name, element[i].value)
+            }
+
+            let xmlHTTP = new XMLHttpRequest()
+            xmlHTTP.onreadystatechange = () => {
+                if (xmlHTTP.readyState === 4 && xmlHTTP.status === 200) {
+                    alert(xmlHTTP.responseText)
+                }
+            }
+            xmlHTTP.open("post", "back.php")
+            xmlHTTP.send(form_data)
+        }
+    </script>
+</body>
+</html>
